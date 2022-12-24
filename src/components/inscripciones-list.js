@@ -118,7 +118,7 @@ const InscripcionesList = () => {
 													Mis <b>Inscripciones</b>
 												</h2>
 											</div>
-											<div className="input-group mb-3 col-sm-12">
+											<div className="input-group">
 												<input
 													type="text"
 													className="form-control w-auto"
@@ -140,54 +140,66 @@ const InscripcionesList = () => {
 										</div>
 									</div>
 									<div className="overflowAuto">
-										<div className="container-fluid divTableInscripcionesUser">
-											<table className="table table-striped w-auto table-hover tableData">
-												<thead>
-													<tr>
-														<th className="thData fixedColHead">Acciones</th>
-														<th className="thData">Id</th>
-														<th className="thData">ID Evento</th>
-														<th className="thData">ID Clase</th>
-														<th className="thData">ID Usuario</th>
-														<th className="thData">ID Vehiculo</th>
-														<th className="thData">Precio</th>
-														<th className="thData">Fecha</th>
-														<th className="thData">Matcheado</th>
-														<th className="thData">Ingreso</th>
-													</tr>
-												</thead>
-												<tbody>
-													{inscripciones.map((inscripcion) => {
-														const id = `${inscripcion._id}`;
-														const idEvento = `${inscripcion.idEvento}`;
-														const claseId = `${inscripcion.claseId}`;
-														const idUsuario = `${inscripcion.idUsuario}`;
-														const vehiculoId = `${inscripcion.vehiculoId}`;
-														const precio = `${inscripcion.precio}`;
-														const fechaSprint = `${inscripcion.fechaSprint}`;
-														const matcheado = `${inscripcion.matcheado}`;
-														const ingreso = `${inscripcion.ingreso}`;
-														return (
-															<tr>
-																<td className="tdData">
-																	<button className="btn btn-primary fixedColRow" onClick={() => verQr(inscripcion)}>
-																		Ver QR
-																	</button>
-																</td>
-																<td className="tdData">{id}</td>
-																<td className="tdData">{idEvento}</td>
-																<td className="tdData">{claseId}</td>
-																<td className="tdData">{idUsuario}</td>
-																<td className="tdData">{vehiculoId}</td>
-																<td className="tdData">{precio}</td>
-																<td className="tdData">{fechaSprint}</td>
-																<td className="tdData">{matcheado}</td>
-																<td className="tdData">{ingreso}</td>
-															</tr>
-														);
-													})}
-												</tbody>
-											</table>
+										<div>
+											<div className="container-fluid">
+												<div className="col-lg-12 align-self-center w-auto">
+													<div className="row">
+														{inscripciones.map((inscripcion) => {
+															const id = `${inscripcion._id}`;
+															const idEvento = `${inscripcion.idEvento}`;
+															const claseId = `${inscripcion.claseId}`;
+															const idUsuario = `${inscripcion.idUsuario}`;
+															const vehiculoId = `${inscripcion.vehiculoId}`;
+															const precio = `${inscripcion.precio}`;
+															const fechaSprint = `${inscripcion.fechaSprint}`;
+															const matcheado = `${inscripcion.matcheado}`;
+															const ingreso = `${inscripcion.ingreso}`;
+															return (
+																<div className="col-lg-4 pb-1">
+																	<div className="card">
+																		<div className="card-body">
+																			<p className="card-text">
+																				<strong>ID: </strong>
+																				{id}
+																				<br />
+																				<strong>ID Evento: </strong>
+																				{idEvento}
+																				<br />
+																				<strong>ID Clase: </strong>
+																				{claseId}
+																				<br />
+																				<strong>ID Usuario: </strong>
+																				{idUsuario}
+																				<br />
+																				<strong>ID Vehiculo: </strong>
+																				{vehiculoId}
+																				<br />
+																				<strong>Precio: </strong>
+																				{precio}
+																				<br />
+																				<strong>Fecha: </strong>
+																				{fechaSprint}
+																				<br />
+																				<strong>Matcheado: </strong>
+																				{matcheado}
+																				<br />
+																				<strong>Ingreso: </strong>
+																				{ingreso}
+																				<br />
+																			</p>
+																			<div className="container">
+																				<button className="btn btn-primary" onClick={() => verQr(inscripcion)}>
+																					Ver QR
+																				</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															);
+														})}
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div className="clearfix">

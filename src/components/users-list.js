@@ -112,7 +112,7 @@ const UsersList = () => {
 													const direccion = `${user.direccion}`;
 													const email = `${user.correoE}`;
 													return (
-														<div className="col-lg-4 pb-1">
+														<div className="col-lg-4 py-1">
 															<div className="card">
 																<div className="card-body">
 																	<h5 className="card-title">{`${user.nombre} ${user.apellido}`}</h5>
@@ -135,8 +135,8 @@ const UsersList = () => {
 																		<strong>Email: </strong>
 																		{email}
 																	</p>
-																	<div className="row col-lg-12">
-																		<Link to={'/miperfil/' + user._id} className="btn btn-warning mx-2 mt-1">
+																	<div className="row w-auto">
+																		<Link to={'/miperfil/' + user._id} className="btn btn-warning mt-1">
 																			View User
 																		</Link>
 																	</div>
