@@ -1,0 +1,200 @@
+.App {
+  text-align: center;
+  overflow-x:none
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.logo{
+  position: absolute;
+  width: 60px;
+  height: 50px;
+  top: 10px;
+}
+
+.navBlack{
+  min-height: 67px;
+  background-color: #192024 !important;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.float-right{
+  float: right;
+}
+
+.bugermenu{
+  display: flex;
+  justify-content: center;
+  margin-top: -23px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+img {
+  display: block;
+  cursor: pointer;
+}
+
+.radio-class {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.label-class {
+  margin-right: 15px;
+}
+
+input[data-readonly] {
+  pointer-events: none;
+}
+
+hr.dashed {
+  border-top: 3px dashed #bbb;
+}
+
+/* Dotted border */
+hr.dotted {
+  border-top: 3px dotted #bbb;
+}
+
+/* Solid border */
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
+/* Rounded border */
+hr.rounded {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+}
+
+.container .selected {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  border: 4px solid purple;
+}
+
+.container .imgContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 0 40px 0;
+}
+
+.container .imgContainer img{
+  width: 100px;
+  height: 100px;
+  margin: 5px 5px 0 5px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+
+.notFoundPage {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P';
+  color: #FFFFFF;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+div.notFoundPage {
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='58' viewBox='0 0 42 58'%3E%3Cg fill='%23dddcdd' fill-opacity='0.23'%3E%3Cpath fill-rule='evenodd' d='M12 18h12v18h6v4H18V22h-6v-4zm-6-2v-4H0V0h36v6h6v36h-6v4h6v12H6v-6H0V16h6zM34 2H2v8h24v24h8V2zM6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM2 50h32v-8H10V18H2v32zm28-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+section.notFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5%;
+    height: 100vh;
+    font-family: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+section.notFound h1 {
+    color: red;
+    font-size: 200%;
+    overflow-wrap: break-word;
+}
+
+section.notFound h2 {
+    font-size: 50px;
+}
+
+section.notFound h1, h2, h3 {
+    margin-bottom: 40px;
+}
+
+div.textNotFound {
+    height: 50vh;
+}
+
+div.textNotFound label {
+    text-decoration: none;
+    margin-right: 20px;
+    color: white;
+}
+
+div.textNotFound label:hover {
+    color: red;
+    text-decoration: underline; 
+}
+
+@media only screen and (max-width: 75%) {
+    section.notFound {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    section.notFound div.img img {
+        width: 70vw;
+        height: auto;
+    }
+    section.notFound h1 {
+        font-size: 50px;
+    }
+    section.notFound h2 {
+        font-size: 25px;
+    }
+    div.text a:active {
+    color: red;
+    text-decoration: underline; 
+  }
+}

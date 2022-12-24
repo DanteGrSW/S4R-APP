@@ -1,0 +1,149 @@
+html,
+body {
+  background-image: url('../assets/profilePics/galvez.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; 
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.sombraCard{
+  box-shadow: 0px 3px 2px black;
+}
+
+.vh-85{
+  height: 85vh!important;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 3040px;
+  padding: 60px 30px 10px;
+  margin: auto;
+  background-color: white;
+  opacity: 0.9;
+  backdrop-filter: blur(5px);
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-abm {
+  width: 100%;
+  max-width: 3040px;
+  padding: 30px;
+  margin: auto;
+  background-color: white;
+  opacity: 0.9;
+  backdrop-filter: blur(5px);
+}
+
+.form-abm .checkbox {
+  font-weight: 400;
+}
+.form-abm .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-abm .form-control:focus {
+  z-index: 2;
+}
+
+.form-perfil {
+  width: 100%;
+  max-width: 3040px;
+  padding: 30px;
+  margin: auto;
+  background-color: white;
+  backdrop-filter: blur(5px);
+}
+
+.form-perfil .checkbox {
+  font-weight: 400;
+}
+.form-perfil .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-perfil .form-control:focus {
+  z-index: 2;
+}
+
+.overflowAuto{
+  overflow: auto;
+}
+.overflowHidden{
+  overflow: hidden;
+}
+
+/* CSS Para columna de acciones Fixed */
+
+.tableData {
+  border-spacing: 0;
+}
+.tdData, .thData {
+  margin: 0;
+  white-space: nowrap;
+  border-top-width: 0px;
+  line-height: 37px;
+}
+
+.tdDataButtons {
+  margin: 0;
+  white-space: nowrap;
+  border-top-width: 0px;
+}
+
+.divTableABMCarsAdmin {
+  margin-left: 14%;
+  padding: 0;
+}
+
+.divTableInscripcionesAdmin {
+  margin-left: 21.2%;
+  padding: 0;
+}
+.divTableInscripcionesUser {
+  margin-left: 7.5%;
+  padding: 0;
+}
+
+.fixedColHead {
+  justify-content: center;
+  position: absolute;
+  width: auto;
+  left: 3%;
+  margin-top: -1px;
+}
+.fixedColRow {
+  position: absolute;
+  width: auto;
+  left: 3%;
+}
