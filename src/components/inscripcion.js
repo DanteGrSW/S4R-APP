@@ -257,11 +257,11 @@ const CarsList = () => {
 								<p className="h1 text-center">Inscripcion a Evento</p>
 								<br></br>
 								<div className="form-row">
-									<div className="form-group align-items-center">
-										<label className="label-class" htmlFor="exampleInputEmail1">
+									<div className="form-group justify-content-center">
+										<label className="label-class my-1" htmlFor="exampleInputEmail1">
 											Clases disponibles para este viernes
 										</label>
-										<select onChange={onChangesetSelectedClass}>
+										<select className="my-1" onChange={onChangesetSelectedClass}>
 											{clasesDisponibles.map((param) => {
 												return (
 													<option key={param} value={param}>
@@ -280,7 +280,7 @@ const CarsList = () => {
 											{' '}
 											Tiempo de la clase seleccionada:{' '}
 										</label>
-										<input type="text" id="tiempoClaseData" name="tiempoDataInput" className="col-md-1" data-readonly required />
+										<input type="text" id="tiempoClaseData" name="tiempoDataInput" className="my-2" data-readonly required />
 										<div className="invalid-feedback">Por favor seleccione una clase de la lista.</div>
 									</div>
 									<hr className="rounded"></hr>
@@ -290,7 +290,7 @@ const CarsList = () => {
 											Deseo inscribir a otro competidor:{' '}
 										</label>
 										<br></br>
-										<div onChange={onChangeValueCompetidor}>
+										<div className="w-auto" onChange={onChangeValueCompetidor}>
 											<input className="radio-class-competidor" type="radio" value="false" name="inscribirOtroCompetidor" defaultChecked /> No
 											<br></br>
 											<input className="radio-class-competidor" type="radio" value="true" name="inscribirOtroCompetidor" /> Si
@@ -303,8 +303,8 @@ const CarsList = () => {
 												ID del competidor:{' '}
 											</label>
 											<input type="text" id="otroCompetidorData" name="otroCompetidorDataInput" className="mt-1" readOnly={inscribrOtroCompetidor} />
-											<div className="invalid-feedback">Por favor ingrese el ID de un competidor.</div>
-											<button className="btn btn-dark mx-2" id="buscarVehiculsButton" type="button" onClick={buscarVehiculosCompetidor}>
+											<div className="invalid-feedback my-1">Por favor ingrese el ID de un competidor.</div>
+											<button className="btn btn-dark mx-2 my-2" id="buscarVehiculsButton" type="button" onClick={buscarVehiculosCompetidor}>
 												Buscar Vehiculos
 											</button>
 										</div>
@@ -321,38 +321,45 @@ const CarsList = () => {
 															</div>
 														</div>
 													</div>
-													<table className="table table-striped align-items-center table-hover">
-														<thead>
-															<tr>
-																<th>Patente</th>
-																<th>Marca & Modelo</th>
-																<th>Año</th>
-																<th>Taller Asociado</th>
-																<th>Acciones</th>
-															</tr>
-														</thead>
-														<tbody>
-															{autos.map((selectedCar) => {
-																const patente = `${selectedCar.patente}`;
-																const modelo = `${selectedCar.modelo}`;
-																const anio = `${selectedCar.anio}`;
-																const tallerAsociado = `${selectedCar.tallerAsociado}`;
-																return (
-																	<tr>
-																		<td>{patente}</td>
-																		<td>{modelo}</td>
-																		<td>{anio}</td>
-																		<td>{tallerAsociado}</td>
-																		<td>
-																			<button className="btn btn-warning" type="button" onClick={() => selectCar(selectedCar)}>
-																				Seleccionar
-																			</button>
-																		</td>
-																	</tr>
-																);
-															})}
-														</tbody>
-													</table>
+													<div>
+														<div className="container-fluid">
+															<div className="col-lg-12 align-self-center w-auto">
+																<div className="row">
+																	{autos.map((selectedCar) => {
+																		const patente = `${selectedCar.patente}`;
+																		const modelo = `${selectedCar.modelo}`;
+																		const anio = `${selectedCar.anio}`;
+																		return (
+																			<div className="col-lg-4 pb-1">
+																				<div className="card">
+																					<div className="card-body">
+																						<h5 className="card-title">Patente: {patente}</h5>
+																						<p className="card-text">
+																							<strong>Marca & Modelo: </strong>
+																							{modelo}
+																							<br />
+																							<strong>Año: </strong>
+																							{anio}
+																							<br />
+																						</p>
+																						<div className="container">
+																							<button
+																								className="btn btn-warning"
+																								type="button"
+																								onClick={() => selectCar(selectedCar)}
+																							>
+																								Seleccionar
+																							</button>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		);
+																	})}
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>

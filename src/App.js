@@ -88,31 +88,6 @@ function App() {
 		window.location.href = '../inicio';
 	}
 
-	// let inscripcionACarrera = () => {
-	// 	if (cookies.get('_id')) {
-	// 		return (
-	// 			<div>
-	// 				<li key="DropdownUser">
-	// 					<div>
-	// 						<ul aria-labelledby="dropdownMenuButton1">
-	// 							<li key="UserPerfil">
-	// 								<a href="/inscripcion" className=" btn btn-info text-light mx-1 mt-3">
-	// 									<strong>Inscripcion a Carrera</strong>
-	// 								</a>
-	// 							</li>
-	// 						</ul>
-	// 					</div>
-	// 				</li>
-	// 			</div>
-	// 			// <div>
-	// 			// 	<a href="/inscripcion" className=" btn btn-info text-light mx-1 mt-3">
-	// 			// 		<strong>Inscripcion a Carrera</strong>
-	// 			// 	</a>
-	// 			// </div>
-	// 		);
-	// 	}
-	// };
-
 	return (
 		<div>
 			<nav className="navbar navbar-expand-lg navbar-dark bg-dark navBlack box-shadow">
