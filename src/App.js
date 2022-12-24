@@ -29,38 +29,35 @@ function App() {
 		return (
 			<div>
 				<li key="DropdownUser">
-					<div className="dropdown bugermenu">
-						<button className="btn btn-dark navbar-toggler" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-							<span className="navbar-toggler-icon"></span>
-						</button>
-						<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<div>
+						<ul aria-labelledby="dropdownMenuButton1">
 							<li key="UserPerfil">
-								<a href={'/miperfil/' + cookies.get('_id')} className="dropdown-item">
+								<a href={'/miperfil/' + cookies.get('_id')} className="text-light nav-link">
 									Mi Perfil
 								</a>
 							</li>
 							<li key="UserPerfil">
-								<a href={'/inicio'} className="dropdown-item">
+								<a href={'/inscripcion'} className="text-light nav-link">
+									Inscribite
+								</a>
+							</li>
+							<li key="UserPerfil">
+								<a href={'/inicio'} className="text-light nav-link">
 									Inicio
 								</a>
 							</li>
 							<li key="AdminUsuarios">
-								<a href="/users" className="dropdown-item">
+								<a href="/users" className="text-light nav-link">
 									Usuarios
 								</a>
 							</li>
-							<li key="UserPerfil">
-								<a href="/inscripcion" className="dropdown-item">
-									Inscribirme
-								</a>
-							</li>
 							<li key="inscripciones">
-								<a href="/inscripciones" className="dropdown-item">
+								<a href="/inscripciones" className="text-light nav-link">
 									Ver Mis Inscripciones
 								</a>
 							</li>
 							<li key="UserCerrarSesion">
-								<a onClick={cerrarSesion} className="dropdown-item" style={{ cursor: 'pointer' }}>
+								<a onClick={cerrarSesion} className="text-light nav-link" style={{ cursor: 'pointer' }}>
 									Cerrar Sesión
 								</a>
 							</li>
@@ -91,33 +88,57 @@ function App() {
 		window.location.href = '../inicio';
 	}
 
-	let inscripcionACarrera = () => {
-		if (cookies.get('_id')) {
-			return (
-				<div>
-					<a href="/inscripcion" className=" btn btn-info text-light float-right mx-1">
-						<strong>Inscripcion a Carrera</strong>
-					</a>
-				</div>
-			);
-		}
-	};
+	// let inscripcionACarrera = () => {
+	// 	if (cookies.get('_id')) {
+	// 		return (
+	// 			<div>
+	// 				<li key="DropdownUser">
+	// 					<div>
+	// 						<ul aria-labelledby="dropdownMenuButton1">
+	// 							<li key="UserPerfil">
+	// 								<a href="/inscripcion" className=" btn btn-info text-light mx-1 mt-3">
+	// 									<strong>Inscripcion a Carrera</strong>
+	// 								</a>
+	// 							</li>
+	// 						</ul>
+	// 					</div>
+	// 				</li>
+	// 			</div>
+	// 			// <div>
+	// 			// 	<a href="/inscripcion" className=" btn btn-info text-light mx-1 mt-3">
+	// 			// 		<strong>Inscripcion a Carrera</strong>
+	// 			// 	</a>
+	// 			// </div>
+	// 		);
+	// 	}
+	// };
 
 	return (
 		<div>
-			<div className="navbar navbar-dark d-flex bg-dark navBlack box-shadow">
-				<div className="container justify-content-center">
-					<div className="col-1 btn">
-						<a href="/inicio" className=" navbar-brand d-flex align-items-center">
-							<img className="logo" src={Logo}></img>
-						</a>
-						<span></span>
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark navBlack box-shadow">
+				<div className="container-fluid">
+					<a href="/inicio" className="navbar-brand d-flex align-items-center">
+						<img className="logo" src={Logo}></img>
+					</a>
+					<div className="text-light">{cookies.get('nombre')}</div>
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<div className="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+							<div>{sesion()}</div>
+						</ul>
 					</div>
-					<div className="col-4 text-light">{cookies.get('nombre')}</div>
-					<div className="col-5">{inscripcionACarrera()}</div>
-					<div className="col-1 m-1">{sesion()}</div>
 				</div>
-			</div>
+			</nav>
 			<BrowserRouter>
 				<Switch>
 					<Route exact path={['/', '/Inicio']} component={Inicio} />

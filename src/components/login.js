@@ -118,8 +118,8 @@ function Login() {
 
 	return (
 		<div className="App imgLogin">
-			<div className="container">
-				<div className="d-flex vh-85 p-5 justify-content-center align-items-center">
+			<div className="container-fluid">
+				<div className="d-flex vh-85 p-2 justify-content-center align-items-center">
 					<div className="col card sombraCard form-signin">
 						<h1 className="h3 mb-3 font-weight-normal">BIENVENIDOS A S4R</h1>
 						<label className="sr-only align-content-start d-flex">Usuario</label>
@@ -127,10 +127,10 @@ function Login() {
 						<label className="sr-only  align-content-start d-flex">Contraseña</label>
 						<input type="password" placeholder="Escribe tu contraseña" className="form-control" name="password" onChange={handleChange} />{' '}
 						<div className="d-grid gap-2 d-md-block">
-							<button className="btn mt-4 mx-2 btn-primary" type="button" onClick={() => logIn(user)}>
+							<button className="btn my-2 mx-2 btn-primary" type="button" onClick={() => logIn(user)}>
 								Iniciar Sesión
 							</button>
-							<button className="btn mt-4 mx-2 btn-secondary" type="button" onClick={() => selectUser(selectedUser)}>
+							<button className="btn my-2 mx-2 btn-secondary" type="button" onClick={() => selectUser(selectedUser)}>
 								Registrarse
 							</button>
 						</div>
@@ -146,7 +146,7 @@ function Login() {
 					<input className="form-control" type="text" maxLength="300" name="nombre" id="nombreField" onChange={handleChangeCreate} value={selectedUser.nombre} />
 					<label>Apellido</label>
 					<input className="form-control" type="text" maxLength="50" name="apellido" id="apellidoField" onChange={handleChangeCreate} value={selectedUser.apellido} />
-					<label>CorreoE</label>
+					<label>Correo Electronico</label>
 					<input className="form-control" type="text" maxLength="100" name="correoE" id="correoEField" onChange={handleChangeCreate} value={selectedUser.correoE} />
 					<label>Dirección</label>
 					<input className="form-control" type="text" maxLength="100" name="direccion" id="direccionField" onChange={handleChangeCreate} value={selectedUser.direccion} />
@@ -173,7 +173,7 @@ function Login() {
 							);
 						})}
 					</select>
-					<label>Password</label>
+					<label>Contraseña</label>
 					<input
 						className="form-control"
 						type="password"
