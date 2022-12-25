@@ -522,7 +522,7 @@ const MiPerfil = (props) => {
 													<img className="col-lg-6" src={perfil.profilePic ? imgObj[perfil.profilePic] : defaultImg} alt="Imagen de Perfil" />
 													<div className="col-lg-6">
 														<div className="d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
-															<h3 className="h2 text-black mb-0">
+															<h3 className="h2 text-black my-2">
 																{perfil.nombre} {perfil.apellido}
 															</h3>
 														</div>
@@ -552,7 +552,6 @@ const MiPerfil = (props) => {
 																<a className="btn btn-warning" href="#graficos">
 																	Performance
 																</a>
-																<br></br>
 																<br></br>
 															</li>
 														</ul>
