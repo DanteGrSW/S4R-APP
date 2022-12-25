@@ -72,6 +72,20 @@ const MiPerfil = (props) => {
 		idVt: '',
 	});
 
+	//vt = Verificación Técnica
+	const [vt, setVt] = useState([]);
+	const [modalEditarVt, setModalEditarVt] = useState(false);
+	const [selectedVt, setSelectedVt] = useState({
+		_id: '',
+		mataFuego: '',
+		traje: '',
+		motor: '',
+		electricidad: '',
+		estado: '',
+		idUsuarioDuenio: '',
+		idAuto: '',
+	});
+
 	useEffect(() => {
 		getPerfilById(props.match.params._id);
 		retrieveUser(props.match.params._id);
@@ -319,10 +333,171 @@ const MiPerfil = (props) => {
 	};
 
 	const getIdVerContrincante = (idUsuarioP1, idUsuarioP2) => {
-		if (cookies.get('_id') === idUsuarioP1) {
+		if (props.match.params._id === idUsuarioP1) {
 			return idUsuarioP2;
 		} else {
 			return idUsuarioP1;
+		}
+	};
+
+	//--------------------------------------------------------------Verificación Técnica--------------------------------------------------
+
+	let setModalButtonVt = (selectedVt) => {
+		console.log('SelectecVt tiene:', selectedVt);
+		if (selectedVt._id) {
+			return (
+				<button className="btn btn-success" onClick={() => editarVt(selectedVt)}>
+					Actualizar
+				</button>
+			);
+		} else {
+			return (
+				<button className="btn btn-success" onClick={() => completarVt(selectedVt)}>
+					Completar
+				</button>
+			);
+		}
+	};
+
+	const completarVt = async (selectedVt) => {
+		console.log('SelectecVt tiene:', selectedVt);
+		const result = await CarsDataService.completarVt(selectedVt);
+		if (result?.status) {
+			console.log('creación exitosa');
+			setValidationErrorMessage('');
+			setModalEditarVt(false);
+			refreshList();
+		} else {
+			setValidationErrorMessage(result?.errorMessage);
+		}
+	};
+
+	const editarVt = async (selectedVt) => {
+		autos.forEach((vt) => {
+			if (vt._id === selectedVt._id) {
+				vt.mataFuego = selectedVt.mataFuego;
+				vt.traje = selectedVt.traje;
+				vt.motor = selectedVt.motor;
+				vt.electricidad = selectedVt.electricidad;
+				vt.estado = selectedVt.estado;
+				vt.idUsuarioDuenio = selectedVt.idUsuarioDuenio;
+				vt.idAuto = selectedVt.idAuto;
+			}
+		});
+		const result = await CarsDataService.editVt(selectedVt);
+		if (result.status) {
+			console.log('Edicion exitosa');
+			setValidationErrorMessage('');
+			setVt(vt);
+			setModalEditarVt(false);
+			refreshList();
+		} else {
+			setValidationErrorMessage(result?.errorMessage);
+		}
+	};
+
+	const eliminarVt = (idVt, idAuto) => {
+		deleteVt(idVt, idAuto);
+		setModalEditarVt(false);
+	};
+
+	const deleteVt = async (idVt, idAuto) => {
+		console.log('VT to be deleted', idVt, idAuto);
+		await CarsDataService.deleteVt(idVt, idAuto)
+			.then(() => {
+				refreshList();
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	const selectVt = async (action, car = {}) => {
+		if (car.idVt) {
+			await CarsDataService.findVt(car.idVt, '_id')
+				.then((response) => {
+					setVt(response.data.vts[0]);
+					setSelectedVt(response.data.vts[0]);
+					action === 'EditarVt' ? setModalEditarVt(true) : console.log('first'); //setModalElminarVt(true);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		} else {
+			setSelectedVt({ idAuto: car._id, idUsuarioDuenio: car.idUsuarioDuenio });
+			action === 'EditarVt' ? setModalEditarVt(true) : console.log('first'); //setModalElminarVt(true);
+		}
+	};
+
+	const handleChangeVt = (e) => {
+		const { name, value } = e.target;
+		setSelectedVt((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
+	const closeModalVt = () => {
+		setModalEditarVt(false);
+		setValidationErrorMessage('');
+	};
+
+	const accionesPorSesionEditUser = () => {
+		if (cookies.get('_id') === props.match.params._id || cookies.get('idRol') === '1') {
+			return (
+				<div className="d-flex justify-content-center">
+					<button className="btn btn-secondary" onClick={() => editData('Editar', perfil)}>
+						Editar datos
+					</button>
+				</div>
+			);
+		} else {
+			return <div></div>;
+		}
+	};
+	const accionesPorSesionAddAuto = () => {
+		if (cookies.get('_id') === props.match.params._id || cookies.get('idRol') === '1') {
+			return (
+				<div className="d-flex justify-content-start">
+					<button className="btn btn-success mb-2 d-flex" onClick={() => selectCar('EditarAuto')}>
+						Añadir un nuevo Auto
+					</button>
+				</div>
+			);
+		} else {
+			return <div></div>;
+		}
+	};
+
+	const accionesPorSesionAutoCards = (car) => {
+		if (cookies.get('idRol') === '1') {
+			return (
+				<div className="col-12 justify-content-center">
+					<button className="btn btn-warning col-5 mx-1" onClick={() => selectCar('EditarAuto', car)}>
+						Edit
+					</button>
+					<button className="btn btn-danger col-5 mx-1" onClick={() => selectCar('Eliminar', car)}>
+						Delete
+					</button>
+					<br></br>
+					<button className="btn btn-secondary col-11 mt-1" onClick={() => selectVt('EditarVt', car)}>
+						Verificación Técnica
+					</button>
+				</div>
+			);
+		} else if (cookies.get('_id') === props.match.params._id) {
+			return (
+				<div className="d-flex justify-content-center">
+					<button className="btn btn-warning col-5 mx-1" onClick={() => selectCar('EditarAuto', car)}>
+						Edit
+					</button>
+					<button className="btn btn-danger col-5 mx-1" onClick={() => selectCar('Eliminar', car)}>
+						Delete
+					</button>
+				</div>
+			);
+		} else {
+			return <div></div>;
 		}
 	};
 
@@ -371,9 +546,7 @@ const MiPerfil = (props) => {
 															</li>
 															<br></br>
 															<li>
-																<button className="btn btn-secondary" onClick={() => editData('Editar', perfil)}>
-																	Editar datos
-																</button>
+																{accionesPorSesionEditUser()}
 																<br></br>
 																<br></br>
 																<a className="btn btn-warning" href="#graficos">
@@ -398,9 +571,7 @@ const MiPerfil = (props) => {
 															<h2>
 																Administra tus <b>Autos</b>
 															</h2>
-															<button className="btn btn-success mb-2 d-flex" onClick={() => selectCar('EditarAuto')}>
-																Añadir un nuevo Auto
-															</button>
+															{accionesPorSesionAddAuto()}
 														</div>
 														<br></br>
 													</div>
@@ -442,14 +613,7 @@ const MiPerfil = (props) => {
 																			{id}
 																			<br />
 																		</p>
-																		<div className="container">
-																			<button className="btn btn-warning col-5 mx-1" onClick={() => selectCar('EditarAuto', selectedCar)}>
-																				Edit
-																			</button>
-																			<button className="btn btn-danger col-5 mx-1" onClick={() => selectCar('Eliminar', selectedCar)}>
-																				Delete
-																			</button>
-																		</div>
+																		<div className="container">{accionesPorSesionAutoCards(selectedCar)}</div>
 																	</div>
 																</div>
 															</div>
@@ -463,82 +627,7 @@ const MiPerfil = (props) => {
 
 									<div>
 										<div className="container-fluid">
-											<div className="table">
-												<div className="table-wrapper">
-													<div className="table-title">
-														<div className="row">
-															<div className="col-sm-6 w-auto">
-																<h2>Tus Carreras</h2>
-															</div>
-														</div>
-													</div>
-													<div className="overflowAuto">
-														<div className="container-fluid divTableABMCarsAdmin">
-															<table className="table table-responsive table-striped w-auto table-hover tableData">
-																<thead>
-																	<tr>
-																		<th className="thData fixedColHead">Acciones</th>
-																		<th className="thData">Usuario 1</th>
-																		<th className="thData">Vehiculo 1</th>
-																		<th className="thData">Reacción</th>
-																		<th className="thData">Tiempo 100 mts</th>
-																		<th className="thData">Tiempo Llegada</th>
-																		<th className="thData">Usuario 2</th>
-																		<th className="thData">Vehiculo 2</th>
-																		<th className="thData">Reacción</th>
-																		<th className="thData">Tiempo 100 mts</th>
-																		<th className="thData">Tiempo Llegada</th>
-																		<th className="thData">ID Evento</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	{carreras.map((selectedCarrera) => {
-																		const idUsuarioP1 = `${selectedCarrera.idUsuarioP1}`;
-																		const idUsuarioP2 = `${selectedCarrera.idUsuarioP2}`;
-																		const idVehiculoP1 = `${selectedCarrera.idVehiculoP1}`;
-																		const idVehiculoP2 = `${selectedCarrera.idVehiculoP2}`;
-																		const reaccionP1 = `${selectedCarrera.reaccionP1}`;
-																		const reaccionP2 = `${selectedCarrera.reaccionP2}`;
-																		const tiempo100mtsP1 = `${selectedCarrera.tiempo100mtsP1}`;
-																		const tiempo100mtsP2 = `${selectedCarrera.tiempo100mtsP2}`;
-																		const tiempoLlegadaP1 = `${selectedCarrera.tiempoLlegadaP1}`;
-																		const tiempoLlegadaP2 = `${selectedCarrera.tiempoLlegadaP2}`;
-																		const idEvento = `${selectedCarrera.idEvento}`;
-																		return (
-																			<tr>
-																				<td className="tdData fixedColRow">
-																					<a
-																						className="btn btn-primary mx-1"
-																						href={
-																							'/miperfil/' +
-																							getIdVerContrincante(selectedCarrera.idUsuarioP1, selectedCarrera.idUsuarioP2)
-																						}
-																					>
-																						Ver Contrincante
-																					</a>
-																				</td>
-																				<td className="tdData">{idUsuarioP1}</td>
-																				<td className="tdData">{idVehiculoP1}</td>
-																				<td className="tdData">{reaccionP1}</td>
-																				<td className="tdData">{tiempo100mtsP1}</td>
-																				<td className="tdData">{tiempoLlegadaP1}</td>
-																				<td className="tdData">{idUsuarioP2}</td>
-																				<td className="tdData">{idVehiculoP2}</td>
-																				<td className="tdData">{reaccionP2}</td>
-																				<td className="tdData">{tiempo100mtsP2}</td>
-																				<td className="tdData">{tiempoLlegadaP2}</td>
-																				<td className="tdData">{idEvento}</td>
-																			</tr>
-																		);
-																	})}
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
 											<div id="graficos">
-												<hr className="rounded"></hr>
 												<ChartComponent
 													id="chartsReaccion"
 													tooltip={{ enable: true }}
@@ -564,7 +653,85 @@ const MiPerfil = (props) => {
 														<SeriesDirective dataSource={reporte} xName="auto" yName="avgCien" type="Column" fill="#fbb00e"></SeriesDirective>
 													</SeriesCollectionDirective>
 												</ChartComponent>
-												<hr className="rounded"></hr>
+											</div>
+										</div>
+									</div>
+									<hr className="rounded"></hr>
+
+									<div>
+										<div className="container-fluid">
+											<div className="col-lg-12 align-self-center w-auto">
+												<div className="row">
+													<div className="row">
+														<div className="col-sm-4">
+															<h2>Tus Carreras</h2>
+														</div>
+														<br></br>
+													</div>
+													{carreras.map((selectedCarrera) => {
+														const idUsuarioP1 = `${selectedCarrera.idUsuarioP1}`;
+														const idUsuarioP2 = `${selectedCarrera.idUsuarioP2}`;
+														const idVehiculoP1 = `${selectedCarrera.idVehiculoP1}`;
+														const idVehiculoP2 = `${selectedCarrera.idVehiculoP2}`;
+														const reaccionP1 = `${selectedCarrera.reaccionP1}`;
+														const reaccionP2 = `${selectedCarrera.reaccionP2}`;
+														const tiempo100mtsP1 = `${selectedCarrera.tiempo100mtsP1}`;
+														const tiempo100mtsP2 = `${selectedCarrera.tiempo100mtsP2}`;
+														const tiempoLlegadaP1 = `${selectedCarrera.tiempoLlegadaP1}`;
+														const tiempoLlegadaP2 = `${selectedCarrera.tiempoLlegadaP2}`;
+														const idEvento = `${selectedCarrera.idEvento}`;
+														return (
+															<div className="col-lg-4 pb-1">
+																<div className="card">
+																	<div className="card-body">
+																		<p className="card-text">
+																			<strong>ID Usuario P1: </strong>
+																			{idUsuarioP1}
+																			<br />
+																			<strong>ID Vehiculo P1: </strong>
+																			{idVehiculoP1}
+																			<br />
+																			<strong>Reaccion P1: </strong>
+																			{reaccionP1}
+																			<br />
+																			<strong>Tiempo 100mts P1: </strong>
+																			{tiempo100mtsP1}
+																			<br />
+																			<strong>Tiempo Llegada P1: </strong>
+																			{tiempoLlegadaP1}
+																			<br />
+																			<hr className="rounded"></hr>
+																			<strong>ID Usuario P2: </strong>
+																			{idUsuarioP2}
+																			<br />
+																			<strong>ID Vehiculo P2: </strong>
+																			{idVehiculoP2}
+																			<br />
+																			<strong>Reaccion P2: </strong>
+																			{reaccionP2}
+																			<br />
+																			<strong>Tiempo 100mts P2: </strong>
+																			{tiempo100mtsP2}
+																			<br />
+																			<strong>Tiempo Llegada P2: </strong>
+																			{tiempoLlegadaP2}
+																			<br />
+																			<strong>ID Evento: </strong>
+																			{idEvento}
+																			<br />
+																		</p>
+																		<a
+																			className="btn btn-primary mx-1"
+																			href={'/miperfil/' + getIdVerContrincante(selectedCarrera.idUsuarioP1, selectedCarrera.idUsuarioP2)}
+																		>
+																			Ver Contrincante
+																		</a>
+																	</div>
+																</div>
+															</div>
+														);
+													})}
+												</div>
 											</div>
 										</div>
 									</div>
@@ -624,6 +791,91 @@ const MiPerfil = (props) => {
 						</button>
 						<button className="btn btn-danger" onClick={() => setModalElminarAuto(false)}>
 							No
+						</button>
+					</ModalFooter>
+				</Modal>
+
+				<Modal isOpen={modalEditarVt}>
+					<ModalBody>
+						<label>ID VT</label>
+						<input className="form-control" readOnly type="text" name="id" id="idField" value={selectedVt._id} placeholder="ID Auto-Incremental" />
+						<label>Mata Fuego</label>
+						<input
+							className="form-control"
+							type="text"
+							placeholder="Valores permitidos: Si | No"
+							maxLength="50"
+							name="mataFuego"
+							id="mataFuegoField"
+							onChange={handleChangeVt}
+							value={selectedVt.mataFuego}
+						/>
+						<label>Traje</label>
+						<input
+							className="form-control"
+							type="text"
+							placeholder="Valores permitidos: Si | No"
+							maxLength="50"
+							name="traje"
+							id="trajeField"
+							onChange={handleChangeVt}
+							value={selectedVt.traje}
+						/>
+						<label>Motor</label>
+						<input
+							className="form-control"
+							type="text"
+							placeholder="Valores permitidos: Si | No"
+							maxLength="100"
+							name="motor"
+							id="motorField"
+							onChange={handleChangeVt}
+							value={selectedVt.motor}
+						/>
+						<label>Electricidad</label>
+						<input
+							className="form-control"
+							type="text"
+							placeholder="Valores permitidos: Si | No"
+							maxLength="300"
+							name="electricidad"
+							id="electricidadField"
+							onChange={handleChangeVt}
+							value={selectedVt.electricidad}
+						/>
+						<label>Estado</label>
+						<input
+							className="form-control"
+							type="text"
+							placeholder="Valores permitidos: Si | No"
+							maxLength="300"
+							name="estado"
+							id="estadoField"
+							onChange={handleChangeVt}
+							value={selectedVt.estado}
+						/>
+						<label>id Dueño del auto</label>
+						<input
+							className="form-control"
+							readOnly
+							type="text"
+							maxLength="200"
+							name="idUsuarioDuenio"
+							id="idUsuarioDuenioField"
+							placeholder="ID Dueño"
+							value={selectedVt.idUsuarioDuenio}
+						/>
+						<label>id Auto</label>
+						<input className="form-control" readOnly type="text" maxLength="50" name="idAuto" id="idAutoField" placeholder="ID Auto" value={selectedVt.idAuto} />
+					</ModalBody>
+					<ModalFooter>
+						{buildErrorMessage()}
+						{setModalButtonVt(selectedVt)}
+						<button className="btn btn-danger" onClick={() => eliminarVt(selectedVt._id, selectedVt.idAuto)}>
+							Borrar Verificacion Tecnica
+						</button>
+						<button className="btn btn-danger" onClick={() => closeModalVt()}>
+							Cancelar
 						</button>
 					</ModalFooter>
 				</Modal>

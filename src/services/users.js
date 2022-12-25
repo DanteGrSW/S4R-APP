@@ -42,7 +42,7 @@ class UsersDataService {
 		const passwordHash = await bcrypt.hash(password, 8);
 
 		result = await http.post(
-			`/createUser?nombre=${nombre}&apellido=${apellido}&direccion=${direccion}&correoE=${correoE}&dni=${dni}&fechaNac=${fechaNac}&telefono=${telefono}&idRol=${idRol}&idGenero=${idGenero}&password=${passwordHash}`
+			`/createUser?nombre=${nombre}&apellido=${apellido}&direccion=${direccion}&correoE=${correoE.toLowerCase()}&dni=${dni}&fechaNac=${fechaNac}&telefono=${telefono}&idRol=${idRol}&idGenero=${idGenero}&password=${passwordHash}`
 		);
 		console.log('Result: ', result);
 		return result;
@@ -62,7 +62,7 @@ class UsersDataService {
 		if (!result.status) return result;
 
 		result = await http.put(
-			`/editUser?_id=${_id}&nombre=${nombre}&apellido=${apellido}&direccion=${direccion}&correoE=${correoE}&dni=${dni}&fechaNac=${fechaNac}&telefono=${telefono}&profilePic=${profilePic}&idRol=${idRol}&idUsuarioModif=${idUsuarioModif}`
+			`/editUser?_id=${_id}&nombre=${nombre}&apellido=${apellido}&direccion=${direccion}&correoE=${correoE.toLowerCase()}&dni=${dni}&fechaNac=${fechaNac}&telefono=${telefono}&profilePic=${profilePic}&idRol=${idRol}&idUsuarioModif=${idUsuarioModif}`
 		);
 		console.log('Result: ', result);
 		return result;

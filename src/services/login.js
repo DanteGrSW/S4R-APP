@@ -6,7 +6,7 @@ export const matchPassword = async (password, hash) => {
 };
 class LoginDataService {
 	async get(correoE, password) {
-		const result = await http.get(`/login?correoE=${correoE}`);
+		const result = await http.get(`/login?correoE=${correoE.toLowerCase()}`);
 		console.log('DB Result: ', result);
 		const hash = result.data.responseData.password;
 		const match = await matchPassword(password, hash);

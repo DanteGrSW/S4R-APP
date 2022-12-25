@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import UserDataService from '../services/users';
 import { Link } from 'react-router-dom';
-import { Alert } from 'reactstrap';
+import { Modal, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -26,9 +26,29 @@ const UsersList = () => {
 	const [searchParam, setSearchParam] = useState('_id');
 	const [searchValue, setSearchValue] = useState('');
 	const [searchableParams] = useState(Object.keys(getUserKeys()));
+	const [genero, setGeneros] = useState([]);
+	const [idRols, setIdRoles] = useState(['All IdRoles']);
+	const [selectedUser, setSelectedUser] = useState({
+		_id: '',
+		apellido: '',
+		correoE: '',
+		direccion: '',
+		dni: '',
+		fechaNac: '',
+		idRol: '',
+		genero: '',
+		nombre: '',
+		password: '',
+		telefono: '',
+	});
+	const [modalCrear, setModalCrear] = useState(false);
+	const [modalEliminar, setModalEliminar] = useState(false);
+	const [validationErrorMessage, setValidationErrorMessage] = useState('');
 
 	useEffect(() => {
 		retrieveUsers();
+		retrieveIdRol();
+		retrieveGeneros();
 	}, []);
 
 	const onChangeSearchParam = (e) => {
@@ -67,6 +87,122 @@ const UsersList = () => {
 		find(searchValue, searchParam);
 	};
 
+	const retrieveIdRol = () => {
+		UserDataService.getIdRol()
+			.then((response) => {
+				console.log('Resultados: ', response.data);
+				setIdRoles(['All IdRoles'].concat(response.data));
+				console.log('roles: ' + idRols);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	const retrieveGeneros = async () => {
+		await UserDataService.getAllGen()
+			.then((response) => {
+				console.log('Data: ', response.data);
+				setGeneros([{ nombre: 'Seleccionar Genero' }].concat(response.data.generos));
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	const selectUser = (action, user = {}) => {
+		console.log('Selected: ', user);
+		setSelectedUser(user);
+
+		action === 'Crear' ? setModalCrear(true) : setModalEliminar(true);
+	};
+
+	const adminAñadirNuevo = () => {
+		if (cookies.get('idRol') === '1') {
+			return (
+				<div className="d-flex mt-2">
+					<button className="btn btn-success" onClick={() => selectUser('Crear')}>
+						Añadir un nuevo Usuario
+					</button>
+				</div>
+			);
+		}
+	};
+
+	const crear = async (selectedUser) => {
+		const result = await UserDataService.createUser(selectedUser);
+		if (result?.status) {
+			console.log('creación exitosa');
+			setValidationErrorMessage('');
+			retrieveUsers();
+			setModalCrear(false);
+		} else {
+			setValidationErrorMessage(result?.errorMessage);
+		}
+	};
+
+	const eliminar = async (selectedUser) => {
+		console.log('esto tiene de id:' + selectedUser);
+		deleteUser(selectedUser);
+		setModalEliminar(false);
+	};
+
+	const deleteUser = async (_id) => {
+		await UserDataService.deleteUser(_id)
+			.then(() => {
+				refreshList();
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	const refreshList = () => {
+		retrieveUsers();
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setSelectedUser((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
+	const buildErrorMessage = () => {
+		if (validationErrorMessage !== '') {
+			return (
+				<Alert id="errorMessage" className="alert alert-danger fade show" key="danger" variant="danger">
+					{validationErrorMessage}
+				</Alert>
+			);
+		}
+		return;
+	};
+
+	const accionesPorSesion = (user) => {
+		if (cookies.get('idRol') === '1') {
+			return (
+				<div className="row col-lg-12">
+					<Link to={'/miperfil/' + user._id} className="btn btn-warning mx-2 mt-1">
+						View User
+					</Link>
+					<button className="btn btn-danger mx-2 mt-1" onClick={() => selectUser('Eliminar', user)}>
+						Delete
+					</button>
+				</div>
+			);
+		} else {
+			return (
+				<div className="row w-auto">
+					<Link to={'/miperfil/' + user._id} className="btn btn-warning mt-1">
+						View User
+					</Link>
+				</div>
+			);
+		}
+	};
+
 	if (cookies.get('_id')) {
 		return (
 			<div className="App">
@@ -101,6 +237,8 @@ const UsersList = () => {
 													</button>
 												</div>
 											</div>
+											<br></br>
+											{adminAñadirNuevo()}
 										</div>
 										<div className="col-lg-12 align-self-center">
 											<div className="row">
@@ -135,11 +273,12 @@ const UsersList = () => {
 																		<strong>Email: </strong>
 																		{email}
 																	</p>
-																	<div className="row w-auto">
+																	{/* <div className="row w-auto">
 																		<Link to={'/miperfil/' + user._id} className="btn btn-warning mt-1">
 																			View User
 																		</Link>
-																	</div>
+																	</div> */}
+																	{accionesPorSesion(user)}
 																</div>
 															</div>
 														</div>
@@ -153,6 +292,71 @@ const UsersList = () => {
 						</div>
 					</div>
 				</div>
+
+				<Modal isOpen={modalCrear}>
+					<ModalBody>
+						<label>ID</label>
+						<input className="form-control" readOnly type="text" name="id" id="idField" value={selectedUser._id} placeholder="Auto-Incremental ID" />
+						<label>Nombre</label>
+						<input className="form-control" type="text" maxLength="300" name="nombre" id="nombreField" onChange={handleChange} value={selectedUser.nombre} />
+						<label>Apellido</label>
+						<input className="form-control" type="text" maxLength="50" name="apellido" id="apellidoField" onChange={handleChange} value={selectedUser.apellido} />
+						<label>Correo Electronico</label>
+						<input className="form-control" type="text" maxLength="50" name="correoE" id="correoEField" onChange={handleChange} value={selectedUser.correoE} />
+						<label>Direccion</label>
+						<input className="form-control" type="text" maxLength="100" name="direccion" id="direccionField" onChange={handleChange} value={selectedUser.direccion} />
+						<label>DNI</label>
+						<input className="form-control" type="number" maxLength="10" name="dni" id="dniField" onChange={handleChange} value={selectedUser.dni} />
+						<label>Fecha De Nacimiento</label>
+						<input className="form-control" type="date" maxLength="300" name="fechaNac" id="fechaNacField" onChange={handleChange} value={selectedUser.fechaNac} />
+						<label>ID Rol</label>
+						<input className="form-control" type="text" maxLength="200" name="idRol" id="idRolField" onChange={handleChange} value={selectedUser.idRol} />
+						<label>Genero</label>
+						<select
+							className="form-select"
+							name="idGenero"
+							id="idGeneroField"
+							onChange={handleChange}
+							value={selectedUser.idGenero}
+							aria-label="Default select example"
+						>
+							{genero.map((genero) => {
+								const id = `${genero.idGenero}`;
+								const nombre = `${genero.nombre}`;
+								return (
+									<option key={id} value={id}>
+										{nombre}
+									</option>
+								);
+							})}
+						</select>
+						<label>Contraseña</label>
+						<input className="form-control" type="password" maxLength="200" name="password" id="passwordField" onChange={handleChange} value={selectedUser.password} />
+						<label>Telefono</label>
+						<input className="form-control" type="text" maxLength="50" name="telefono" id="telefonoField" onChange={handleChange} value={selectedUser.telefono} />
+					</ModalBody>
+					<ModalFooter>
+						{buildErrorMessage()}
+						<button className="btn btn-success" onClick={() => crear(selectedUser)}>
+							Crear
+						</button>
+						<button className="btn btn-danger" onClick={() => setModalCrear(false)}>
+							Cancelar
+						</button>
+					</ModalFooter>
+				</Modal>
+
+				<Modal isOpen={modalEliminar}>
+					<ModalBody>Estás seguro que deseas eliminar el registro? Id: {selectedUser._id}</ModalBody>
+					<ModalFooter>
+						<button className="btn btn-success" onClick={() => eliminar(selectedUser._id)}>
+							Sí
+						</button>
+						<button className="btn btn-danger" onClick={() => setModalEliminar(false)}>
+							No
+						</button>
+					</ModalFooter>
+				</Modal>
 			</div>
 		);
 	} else {
