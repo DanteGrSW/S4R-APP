@@ -49,7 +49,8 @@ const InscripcionesList = () => {
 		await InscripcionDataService.get(cookies.get('_id'), 'idUsuario')
 			.then((response) => {
 				console.log('Data: ', response.data);
-				setinscripciones(response.data.inscripciones);
+				const inscripcionesOrdenadas = response.data.inscripciones.slice().sort((a, b) => new Date(b.fechaSprint) - new Date(a.fechaSprint));
+				setinscripciones(inscripcionesOrdenadas);
 				setTotalResults(response.data.total_results);
 				setEntriesPerPage(response.data.inscripciones.length);
 			})
@@ -64,7 +65,8 @@ const InscripcionesList = () => {
 			await InscripcionDataService.getRegularUser(query, by, cookies.get('_id'))
 				.then((response) => {
 					console.log('Data: ', response.data);
-					setinscripciones(response.data.inscripciones);
+					const inscripcionesOrdenadas = response.data.inscripciones.slice().sort((a, b) => new Date(b.fechaSprint) - new Date(a.fechaSprint));
+					setinscripciones(inscripcionesOrdenadas);
 					setTotalResults(response.data.total_results);
 					setEntriesPerPage(response.data.inscripciones.length);
 				})
