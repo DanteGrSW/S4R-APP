@@ -122,8 +122,8 @@ function Login() {
 				<div className="d-flex vh-85 p-2 justify-content-center align-items-center">
 					<div className="col card sombraCard form-signin">
 						<h1 className="h3 mb-3 font-weight-normal">BIENVENIDOS A S4R</h1>
-						<label className="sr-only align-content-start d-flex">Usuario</label>
-						<input type="text" placeholder="email@email.com" className="form-control" name="correoE" onChange={handleChange} />
+						<label className="sr-only align-content-start d-flex">Correo Electronico</label>
+						<input type="email" placeholder="email@email.com" className="form-control" name="correoE" onChange={handleChange} />
 						<label className="sr-only align-content-start d-flex">Contraseña</label>
 						<input type="password" placeholder="Escribe tu contraseña" className="form-control" name="password" onChange={handleChange} />{' '}
 						<div className="d-grid gap-2 d-md-block">
