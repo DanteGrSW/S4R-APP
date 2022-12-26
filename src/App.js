@@ -36,17 +36,17 @@ function App() {
 									Mi Perfil
 								</a>
 							</li>
-							<li key="UserPerfil">
+							<li key="UserIscripcion">
 								<a href={'/inscripcion'} className="text-light nav-link">
 									Inscribite
 								</a>
 							</li>
-							<li key="UserPerfil">
+							<li key="UserInicio">
 								<a href={'/inicio'} className="text-light nav-link">
 									Inicio
 								</a>
 							</li>
-							<li key="AdminUsuarios">
+							<li key="UserUsuarios">
 								<a href="/users" className="text-light nav-link">
 									Usuarios
 								</a>

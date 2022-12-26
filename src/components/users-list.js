@@ -183,19 +183,19 @@ const UsersList = () => {
 	const accionesPorSesion = (user) => {
 		if (cookies.get('idRol') === '1') {
 			return (
-				<div className="row col-lg-12">
-					<Link to={'/miperfil/' + user._id} className="btn btn-warning mx-2 mt-1">
+				<div className="col-12 w-auto">
+					<Link to={'/miperfil/' + user._id} className="btn btn-warning col-12 mx-1 mt-1">
 						View User
 					</Link>
-					<button className="btn btn-danger mx-2 mt-1" onClick={() => selectUser('Eliminar', user)}>
+					<button className="btn btn-danger col-12 mx-1 mt-1" onClick={() => selectUser('Eliminar', user)}>
 						Delete
 					</button>
 				</div>
 			);
 		} else {
 			return (
-				<div className="row w-auto">
-					<Link to={'/miperfil/' + user._id} className="btn btn-warning mt-1">
+				<div className="col-12 w-auto">
+					<Link to={'/miperfil/' + user._id} className="btn btn-warning col-12 mt-1">
 						View User
 					</Link>
 				</div>
@@ -273,11 +273,6 @@ const UsersList = () => {
 																		<strong>Email: </strong>
 																		{email}
 																	</p>
-																	{/* <div className="row w-auto">
-																		<Link to={'/miperfil/' + user._id} className="btn btn-warning mt-1">
-																			View User
-																		</Link>
-																	</div> */}
 																	{accionesPorSesion(user)}
 																</div>
 															</div>
