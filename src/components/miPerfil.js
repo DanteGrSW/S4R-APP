@@ -568,7 +568,7 @@ const MiPerfil = (props) => {
 													<div className="row">
 														<div className="col-sm-4">
 															<h2>
-																Administra tus <b>Autos</b>
+																Administrá tus <b>Autos</b>
 															</h2>
 															{accionesPorSesionAddAuto()}
 														</div>
