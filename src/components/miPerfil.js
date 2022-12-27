@@ -602,7 +602,7 @@ const MiPerfil = (props) => {
 																			<strong>Historia: </strong>
 																			{historia}
 																			<br />
-																			<strong>Taller Asociado: </strong>
+																			<strong>Taller Mecánico: </strong>
 																			{tallerAsociado}
 																			<br />
 																			<strong>Verificación Técnica: </strong>
