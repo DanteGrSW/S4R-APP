@@ -474,10 +474,10 @@ const MiPerfil = (props) => {
 			return (
 				<div className="col-12 justify-content-center">
 					<button className="btn btn-warning col-5 mx-1" onClick={() => selectCar('EditarAuto', car)}>
-						Edit
+						Editar
 					</button>
 					<button className="btn btn-danger col-5 mx-1" onClick={() => selectCar('Eliminar', car)}>
-						Delete
+						Borrar
 					</button>
 					<br></br>
 					<button className="btn btn-secondary col-11 mt-1" onClick={() => selectVt('EditarVt', car)}>
@@ -489,10 +489,10 @@ const MiPerfil = (props) => {
 			return (
 				<div className="d-flex justify-content-center">
 					<button className="btn btn-warning col-5 mx-1" onClick={() => selectCar('EditarAuto', car)}>
-						Edit
+						Editar
 					</button>
 					<button className="btn btn-danger col-5 mx-1" onClick={() => selectCar('Eliminar', car)}>
-						Delete
+						Borrar
 					</button>
 				</div>
 			);
@@ -762,7 +762,7 @@ const MiPerfil = (props) => {
 						/>
 						<label>Historia</label>
 						<input className="form-control" type="text" maxLength="200" name="historia" id="historiaField" onChange={handleChangeAuto} value={selectedCar.historia} />
-						<label>Taller Mecanico</label>
+						<label>Taller Mecánico</label>
 						<input
 							className="form-control"
 							type="text"

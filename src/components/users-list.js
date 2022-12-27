@@ -188,7 +188,7 @@ const UsersList = () => {
 						View User
 					</Link>
 					<button className="btn btn-danger col-12 mx-1 mt-1" onClick={() => selectUser('Eliminar', user)}>
-						Delete
+						Borrar
 					</button>
 				</div>
 			);

@@ -223,7 +223,7 @@ const InscripcionesList = () => {
 							<>
 								<img src={qrcode} />
 								<a className="btn btn-warning" href={qrcode} download="qrcode.png">
-									Download
+									Descargar
 								</a>
 							</>
 						)}

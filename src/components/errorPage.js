@@ -22,7 +22,7 @@ const ErrorPage = () => {
 					<div className="textNotFound">
 						<h1>Sos rápido, pero banca ahí</h1>
 						<h2>Permisos infusicientes</h2>
-						<h3>De vuelta al inicio?</h3>
+						<h3>Volver al inicio?</h3>
 						<label className="yes" onClick={redirect}>
 							SI
 						</label>
