@@ -61,7 +61,7 @@ const CarsList = () => {
 		if (inscribrOtroCompetidor) {
 			vaciarVehiculoSeleccionado();
 			setAutos([]);
-			alert('Necesita seleccionar el boton "Buscar Vehiculos" para seleccionar un vehiculo antes de finalizar la inscripcion');
+			alert('Necesita seleccionar el botón "Buscar Vehículos" para seleccionar un vehículo antes de finalizar la inscripción');
 			document.getElementById('buscarVehiculsButton').setAttribute('class', 'btn btn-dark');
 			document.getElementById('buscarVehiculsButton').disabled = false;
 		} else {
@@ -143,7 +143,7 @@ const CarsList = () => {
 					.then((response) => {
 						console.log('autos tiene', response.data.cars);
 						if (!response.data.cars.length) {
-							alert('Debe ingresar el ID de un usuario registrado el cual debe tener al menos un auto cargado en el sistema para poder inscribirse');
+							alert('Debe ingresar el ID de un usuario registrado, el cual debe tener al menos un auto cargado en el sistema para poder inscribirse');
 						}
 						setAutos(response.data.cars);
 					})
@@ -151,7 +151,7 @@ const CarsList = () => {
 						console.log(e);
 					});
 			} else {
-				alert('Por favor ingrese el Id de un usuario existente y vuelva a buscar sus vehiculos');
+				alert('Por favor, ingrese el ID de un usuario existente y vuelva a buscar sus vehículos');
 			}
 		}
 	}
@@ -184,11 +184,8 @@ const CarsList = () => {
 		}
 
 		const result = await InscripcionDataService.createInscripcion(inscripcion);
-		// Testing purposes
-		// const result = {status:200}
-		// const result = { errorMessage: 'Datos erroneos' }
 		if (result.status) {
-			console.log('Inscripcion exitosa');
+			console.log('Inscripción exitosa');
 			setInscripcion(defaultInsc);
 			generateQrCode();
 			setModalCodigoQR(true);
@@ -243,7 +240,7 @@ const CarsList = () => {
 	})();
 
 	function formPreventDefault(e) {
-		alert('Inscripcion enviada');
+		alert('Inscripción enviada');
 		e.preventDefault();
 	}
 
@@ -254,7 +251,7 @@ const CarsList = () => {
 					<div className="d-flex vh-85 p-2 justify-content-center align-self-center">
 						<div className="container-lg align-self-center col card sombraCard form-signin">
 							<form className="container-fluid align-self-center needs-validation" onSubmit={formPreventDefault} noValidate>
-								<p className="h1 text-center">Inscripcion a Evento</p>
+								<p className="h1 text-center">Inscripción a Evento</p>
 								<br></br>
 								<div className="form-row">
 									<div className="form-group justify-content-center">
@@ -305,7 +302,7 @@ const CarsList = () => {
 											<input type="text" id="otroCompetidorData" name="otroCompetidorDataInput" className="mt-1" readOnly={inscribrOtroCompetidor} />
 											<div className="invalid-feedback my-1">Por favor ingrese el ID de un competidor.</div>
 											<button className="btn btn-dark mx-2 my-2" id="buscarVehiculsButton" type="button" onClick={buscarVehiculosCompetidor}>
-												Buscar Vehiculos
+												Buscar Vehículos
 											</button>
 										</div>
 									</div>
@@ -367,17 +364,17 @@ const CarsList = () => {
 										<div className="form-group">
 											<label className="label-class" htmlFor="tiempoClase">
 												{' '}
-												Vehiculo Seleccionado:{' '}
+												Vehículo Seleccionado:{' '}
 											</label>
 											<input type="text" id="carData" name="carDataInput" className="col-md-6" data-readonly required />
-											<div className="invalid-feedback">Por favor seleccione uno de sus vehiculos en la tabla.</div>
+											<div className="invalid-feedback">Por favor seleccione uno de sus vehículos en la tabla.</div>
 										</div>
 									</div>
 									<hr className="rounded"></hr>
 									<div className="form-group align-items-center form-check">
 										<label className="font-weight-bold" htmlFor="tiempoClase">
 											{' '}
-											Precio de la inscripcion: ${eventoSeleccionada.precio}
+											Precio de la inscripción: ${eventoSeleccionada.precio}
 										</label>
 										<br></br>
 									</div>
@@ -391,7 +388,7 @@ const CarsList = () => {
 						<Modal isOpen={modalCodigoQR}>
 							<ModalBody>
 								<p className="h1 text-center">Gracias por inscribirse</p>
-								<label>Con el siguiente codigo QR, usted podra ingresar al predio por la entrada preferencial y abonar en efectivo:</label>
+								<label>Con el siguiente código QR, usted podrá ingresar al predio por la entrada preferencial y abonar en efectivo:</label>
 								{qrcode && (
 									<>
 										<img src={qrcode} />
@@ -426,9 +423,9 @@ const CarsList = () => {
 		);
 	} else {
 		window.location.href = './errorPage';
-		console.log('Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla');
+		console.log('Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla');
 		<Alert id="errorMessage" className="alert alert-danger fade show" key="danger" variant="danger">
-			Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla
+			Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla
 		</Alert>;
 	}
 };

@@ -102,7 +102,7 @@ const MiPerfil = (props) => {
 
 				const fechaNacData = new Date(perfilData.fechaNac);
 				const fechaNacDay = fechaNacData.getDate() + 1;
-				// Be careful! January is 0, not 1
+				// Cuidado! Enero es 0, no 1
 				const fechaNacMonth = fechaNacData.getMonth() + 1;
 				const fechaNacYear = fechaNacData.getFullYear();
 
@@ -201,13 +201,12 @@ const MiPerfil = (props) => {
 							}
 						}
 					});
-					return estadoVt ? 'Verificacion OK' : 'Verificacion NO OK';
+					return estadoVt ? 'Verificación OK' : 'Verificación NO OK';
 				})
 				.catch((e) => {
 					console.log(e);
 				});
 		} else {
-			console.log('No tiene VT');
 			return 'No Verificado';
 		}
 	};
@@ -271,7 +270,7 @@ const MiPerfil = (props) => {
 					car.idVt = selectedCar.idVt;
 				}
 			});
-			console.log('Edicion exitosa');
+			console.log('Edición exitosa');
 			setValidationErrorMessage('');
 			setAutos(autos);
 			setModalEditarAuto(false);
@@ -419,14 +418,14 @@ const MiPerfil = (props) => {
 				.then((response) => {
 					setVt(response.data.vts[0]);
 					setSelectedVt(response.data.vts[0]);
-					action === 'EditarVt' ? setModalEditarVt(true) : console.log('first'); //setModalElminarVt(true);
+					action === 'EditarVt' ? setModalEditarVt(true) : console.log('first');
 				})
 				.catch((e) => {
 					console.log(e);
 				});
 		} else {
 			setSelectedVt({ idAuto: car._id, idUsuarioDuenio: car.idUsuarioDuenio });
-			action === 'EditarVt' ? setModalEditarVt(true) : console.log('first'); //setModalElminarVt(true);
+			action === 'EditarVt' ? setModalEditarVt(true) : console.log('first');
 		}
 	};
 
@@ -504,9 +503,9 @@ const MiPerfil = (props) => {
 
 	if (!cookies.get('_id')) {
 		window.location.href = './errorPage';
-		console.log('Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla');
+		console.log('Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla');
 		<Alert id="errorMessage" className="alert alert-danger fade show" key="danger" variant="danger">
-			Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla
+			Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla
 		</Alert>;
 	} else {
 		return (
@@ -872,7 +871,7 @@ const MiPerfil = (props) => {
 						{buildErrorMessage()}
 						{setModalButtonVt(selectedVt)}
 						<button className="btn btn-danger" onClick={() => eliminarVt(selectedVt._id, selectedVt.idAuto)}>
-							Borrar Verificacion Tecnica
+							Borrar Verificación Técnica
 						</button>
 						<button className="btn btn-danger" onClick={() => closeModalVt()}>
 							Cancelar

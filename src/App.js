@@ -53,7 +53,7 @@ function App() {
 							</li>
 							<li key="inscripciones">
 								<a href="/inscripciones" className="text-light nav-link">
-									Ver Mis Inscripciones
+									Ver Mis Inscripciónes
 								</a>
 							</li>
 							<li key="UserCerrarSesion">

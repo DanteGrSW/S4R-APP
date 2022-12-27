@@ -101,9 +101,9 @@ const InscripcionesList = () => {
 
 	if (!cookies.get('_id')) {
 		window.location.href = './errorPage';
-		console.log('Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla');
+		console.log('Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla');
 		<Alert id="errorMessage" className="alert alert-danger fade show" key="danger" variant="danger">
-			Necesita logearse y tener los permisos suficientes para poder acceder a esta pantalla
+			Necesita iniciar sesión y tener los permisos suficientes para poder acceder a esta pantalla
 		</Alert>;
 	} else {
 		return (
@@ -173,7 +173,7 @@ const InscripcionesList = () => {
 																				<strong>ID Usuario: </strong>
 																				{idUsuario}
 																				<br />
-																				<strong>ID Vehiculo: </strong>
+																				<strong>ID Vehículo: </strong>
 																				{vehiculoId}
 																				<br />
 																				<strong>Precio: </strong>
@@ -185,7 +185,7 @@ const InscripcionesList = () => {
 																				<strong>Matcheado: </strong>
 																				{matcheado}
 																				<br />
-																				<strong>Ingreso: </strong>
+																				<strong>Ingresó: </strong>
 																				{ingreso}
 																				<br />
 																			</p>
@@ -218,7 +218,7 @@ const InscripcionesList = () => {
 				<Modal isOpen={modalCodigoQR}>
 					<ModalBody>
 						<p className="h1 text-center">Codigo de Inscripcion</p>
-						<label>Con el siguiente codigo QR, usted podra ingresar al predio por la entrada preferencial y abonar en efectivo:</label>
+						<label>Con el siguiente código QR, usted podrá ingresar al predio por la entrada preferencial y abonar en efectivo:</label>
 						{qrcode && (
 							<>
 								<img src={qrcode} />

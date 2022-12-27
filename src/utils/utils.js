@@ -16,8 +16,8 @@ export function validatePayload(payload) {
 		validationResult.status = false;
 		validationResult.errorMessage =
 			errorProperties.length > 1
-				? `Las siguientes propiedades no pueden estar vacias: ${errorProperties}.`
-				: `La siguiente propiedad no puede estar vacia: ${errorProperties}.`;
+				? `Las siguientes propiedades no pueden estar vacías: ${errorProperties}.`
+				: `La siguiente propiedad no puede estar vacía: ${errorProperties}.`;
 
 		console.log('', validationResult.errorMessage);
 		return validationResult;
@@ -39,7 +39,7 @@ export function validateUserDate(fechaNac) {
 
 	return result;
 }
-// Valida que la fecha ingresada como string sea una fecha válida formateada como "yyyy/mm/dd"
+// Valida que la fecha ingresada como string sea una fecha válida formateada como "yyyy-mm-dd"
 export function fechaValida(dateString) {
 	// Primero verifica el patrón
 	if (!/^\d{4}-\d{1,2}-\d{1,2}$/.test(dateString)) return false;

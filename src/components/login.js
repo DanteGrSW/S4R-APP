@@ -121,7 +121,7 @@ function Login() {
 			<div className="container-fluid">
 				<div className="d-flex vh-85 p-2 justify-content-center align-items-center">
 					<div className="col card sombraCard form-signin">
-						<h1 className="h3 mb-3 font-weight-normal">BIENVENIDOS A S4R</h1>
+						<h1 className="h3 mb-3 font-weight-normal">BIENVENIDO A S4R</h1>
 						<label className="sr-only align-content-start d-flex">Correo Electronico</label>
 						<input type="email" placeholder="email@email.com" className="form-control" name="correoE" onChange={handleChange} />
 						<label className="sr-only align-content-start d-flex">Contraseña</label>
