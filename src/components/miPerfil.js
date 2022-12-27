@@ -886,7 +886,7 @@ const MiPerfil = (props) => {
 						<label>Apellido</label>
 						<input className="form-control" type="text" maxLength="50" name="apellido" id="apellidoField" onChange={handleChange} value={perfil.apellido} />
 						<div className="container">
-							<p>Elegi una imagen de perfil</p>
+							<p>Elegí una imagen de perfil</p>
 							<div className="imgContainer">
 								{keys.map((imageName, index) => (
 									<img
