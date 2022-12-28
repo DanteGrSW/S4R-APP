@@ -246,7 +246,6 @@ const UsersList = () => {
 													const id = `${user._id}`;
 													const nombre = `${user.nombre}`;
 													const apellido = `${user.apellido}`;
-													const idRol = `${user.idRol}`;
 													const direccion = `${user.direccion}`;
 													const email = `${user.correoE}`;
 													return (
@@ -263,9 +262,6 @@ const UsersList = () => {
 																		<br />
 																		<strong>Apellido: </strong>
 																		{apellido}
-																		<br />
-																		<strong>ID Rol: </strong>
-																		{idRol}
 																		<br />
 																		<strong>Dirección: </strong>
 																		{direccion}
