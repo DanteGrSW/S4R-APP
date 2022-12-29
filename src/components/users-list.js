@@ -185,7 +185,7 @@ const UsersList = () => {
 			return (
 				<div className="col-12 w-auto">
 					<Link to={'/miperfil/' + user._id} className="btn btn-warning col-12 mx-1 mt-1">
-						View User
+						Ver Usuario
 					</Link>
 					<button className="btn btn-danger col-12 mx-1 mt-1" onClick={() => selectUser('Eliminar', user)}>
 						Borrar
@@ -196,7 +196,7 @@ const UsersList = () => {
 			return (
 				<div className="col-12 w-auto">
 					<Link to={'/miperfil/' + user._id} className="btn btn-warning col-12 mt-1">
-						View User
+						Ver Usuario
 					</Link>
 				</div>
 			);

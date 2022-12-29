@@ -182,7 +182,7 @@ const InscripcionesList = () => {
 																				<strong>Fecha: </strong>
 																				{fechaSprint}
 																				<br />
-																				<strong>Matcheado: </strong>
+																				<strong>Matcheado con otro competidor: </strong>
 																				{matcheado}
 																				<br />
 																				<strong>Ingresó: </strong>
