@@ -65,6 +65,9 @@ const InscripcionesList = () => {
 			await InscripcionDataService.getRegularUser(query, by, cookies.get('_id'))
 				.then((response) => {
 					console.log('Data: ', response.data);
+					if (!response.data.inscripciones.length) {
+						alert(`No se encontraron datos para la busqueda de ${by} con valor ${query}`);
+					}
 					const inscripcionesOrdenadas = response.data.inscripciones.slice().sort((a, b) => new Date(b.fechaSprint) - new Date(a.fechaSprint));
 					setinscripciones(inscripcionesOrdenadas);
 					setTotalResults(response.data.total_results);
@@ -72,6 +75,7 @@ const InscripcionesList = () => {
 				})
 				.catch((e) => {
 					console.log(e);
+					alert(`No se pudo realizar la busqueda de datos para ${by} con valor ${query}`);
 				});
 		} else {
 			setinscripciones([]);
