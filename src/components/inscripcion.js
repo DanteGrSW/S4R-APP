@@ -62,12 +62,12 @@ const CarsList = () => {
 			vaciarVehiculoSeleccionado();
 			setAutos([]);
 			alert('Necesita seleccionar el botón "Buscar Vehículos" para seleccionar un vehículo antes de finalizar la inscripción');
-			document.getElementById('buscarVehiculsButton').setAttribute('class', 'btn btn-dark');
+			document.getElementById('buscarVehiculsButton').setAttribute('class', 'btn btn-dark mx-2 my-2');
 			document.getElementById('buscarVehiculsButton').disabled = false;
 		} else {
 			vaciarVehiculoSeleccionado();
 			document.getElementById('buscarVehiculsButton').disabled = true;
-			document.getElementById('buscarVehiculsButton').setAttribute('class', 'btn btn-dark');
+			document.getElementById('buscarVehiculsButton').setAttribute('class', 'btn btn-dark mx-2 my-2');
 			getAutos();
 		}
 	}
@@ -255,23 +255,31 @@ const CarsList = () => {
 								<br></br>
 								<div className="form-row">
 									<div className="form-group justify-content-center">
-										<label className="label-class my-1" htmlFor="exampleInputEmail1">
-											Clases disponibles para este viernes
-										</label>
-										<select className="my-1" onChange={onChangesetSelectedClass}>
-											{clasesDisponibles.map((param) => {
-												return (
-													<option key={param} value={param}>
-														{' '}
-														{param}{' '}
-													</option>
-												);
-											})}
-										</select>
-										<br></br>
-										<label className="label-class" htmlFor="cuposClase">
-											{eventoSeleccionada.aproxCupos}
-										</label>
+										<div className="row justify-content-center">
+											<label className="label-class w-auto" htmlFor="exampleInputEmail1">
+												Clases disponibles para este viernes
+											</label>
+											<select
+												className="form-select w-25"
+												name="idEvento"
+												id="idEventoField"
+												aria-label="Default select example"
+												onChange={onChangesetSelectedClass}
+											>
+												{clasesDisponibles.map((param) => {
+													return (
+														<option key={param} value={param}>
+															{' '}
+															{param}{' '}
+														</option>
+													);
+												})}
+											</select>
+											<br></br>
+											<label className="label-class" htmlFor="cuposClase">
+												{eventoSeleccionada.aproxCupos}
+											</label>
+										</div>
 										<br></br>
 										<label className="label-class" htmlFor="tiempoClase">
 											{' '}
