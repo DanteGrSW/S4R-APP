@@ -225,12 +225,12 @@ const UsersList = () => {
 											<div className="input-group">
 												<input
 													type="text"
-													className="form-control w-75"
+													className="form-control w-50"
 													placeholder="Buscar usuario por "
 													value={searchValue}
 													onChange={onChangeSearchValue}
 												/>
-												<select className="form-select" onChange={onChangeSearchParam}>
+												<select className="form-select w-auto" onChange={onChangeSearchParam}>
 													{searchableParams.map((param) => {
 														return <option value={param}> {param.replace('_', '')} </option>;
 													})}
