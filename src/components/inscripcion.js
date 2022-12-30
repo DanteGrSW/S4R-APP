@@ -260,7 +260,7 @@ const CarsList = () => {
 												Clases disponibles para este viernes
 											</label>
 											<select
-												className="form-select w-25"
+												className="form-select w-auto"
 												name="idEvento"
 												id="idEventoField"
 												aria-label="Default select example"
