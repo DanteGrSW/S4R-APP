@@ -33,7 +33,17 @@ const imgObj = {
 	avatar8,
 };
 const keys = Object.keys(imgObj);
-const contraseñaReiniciada = '1234Contraseña5678';
+const contraseñaReiniciada = crearContraseñaReinicio(10);
+
+function crearContraseñaReinicio(longitudContraseña) {
+	let result = '';
+	const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var caracteresLength = caracteres.length;
+	for (let i = 0; i < longitudContraseña; i++) {
+		result += caracteres.charAt(Math.floor(Math.random() * caracteresLength));
+	}
+	return result;
+}
 
 const MiPerfil = (props) => {
 	const initialPerfilState = {
@@ -1077,7 +1087,10 @@ const MiPerfil = (props) => {
 						<p>
 							La contraseña sera reiniciada a: <strong>{`${contraseñaReiniciada}`}</strong>
 						</p>
-						<small className="form-text text-muted">Esta accion no puede deshacerse y luego debera cambiar la contraseña manualmente.</small>
+						<p>
+							<strong>No pierdas esta contraseña</strong> o no podras ingresar al sistema por tu cuenta
+						</p>
+						<small className="form-text text-muted">Esta accion no puede deshacerse y luego es recomendable cambiarla manualmente.</small>
 					</ModalBody>
 					<ModalFooter>
 						{buildErrorMessage()}
