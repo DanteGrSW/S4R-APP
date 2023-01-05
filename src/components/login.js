@@ -130,7 +130,7 @@ function Login() {
 							<button className="btn my-2 mx-2 btn-primary" type="button" onClick={() => logIn(user)}>
 								Iniciar Sesión
 							</button>
-							<button className="btn my-2 mx-2 btn-secondary" type="button" onClick={() => selectUser(selectedUser)}>
+							<button className="btn my-2 mx-2 btn-warning" type="button" onClick={() => selectUser(selectedUser)}>
 								Registrarse
 							</button>
 						</div>
