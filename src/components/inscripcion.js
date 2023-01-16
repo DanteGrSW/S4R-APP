@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
+import { PermissionsAndroid } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 import { Modal, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import InscripcionDataService from '../services/inscripcion';
 import CarsDataService from '../services/cars';
@@ -216,6 +218,47 @@ const CarsList = () => {
 		return;
 	};
 
+	const checkPermission = async (qrcode) => {
+		try {
+			const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+				title: 'Permiso de almacenamiento requerido',
+				message: 'La aplicacion necesita permisos de almacenamiento para descargar la imagen',
+			});
+			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+				downloadQrCode(qrcode);
+				console.log('Permiso de almacenamiento concedido.');
+			} else {
+				Alert.alert('Error', 'Permiso de almacenamiento no concedido');
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const downloadQrCode = async (qrcode) => {
+		let FILE_URL = qrcode;
+		const file_ext = '.png';
+
+		const { config, fs } = RNFetchBlob;
+		let RootDir = fs.dirs.PictureDir;
+		let options = {
+			fileCache: true,
+			addAndroidDownloads: {
+				path: RootDir + '/S4RCodigoQr' + file_ext,
+				description: 'descargando archivo...',
+				notification: true,
+				useDownloadManager: true,
+			},
+		};
+		config(options)
+			.fetch('GET', FILE_URL)
+			.then((res) => {
+				// Alerta despues de descargar exitosamente
+				console.log('res -> ', JSON.stringify(res));
+				alert('Archivo descargado con exito.');
+			});
+	};
+
 	// Funcion de custom validation basada en la documentacion de Bootstrap
 	(function () {
 		'use strict';
@@ -400,7 +443,7 @@ const CarsList = () => {
 								{qrcode && (
 									<>
 										<img src={qrcode} />
-										<a className="btn btn-warning" href={qrcode} download="qrcode.png">
+										<a className="btn btn-warning" href={qrcode} download="qrcode.png" onClick={() => checkPermission(qrcode)}>
 											Descargar
 										</a>
 									</>
