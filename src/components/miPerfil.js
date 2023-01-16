@@ -104,6 +104,7 @@ const MiPerfil = (props) => {
 		estado: '',
 		idUsuarioDuenio: '',
 		idAuto: '',
+		fechaUltModif: '',
 	});
 
 	useEffect(() => {
@@ -501,6 +502,7 @@ const MiPerfil = (props) => {
 				vt.estado = selectedVt.estado;
 				vt.idUsuarioDuenio = selectedVt.idUsuarioDuenio;
 				vt.idAuto = selectedVt.idAuto;
+				vt.fechaUltModif = selectedVt.fechaUltModif;
 			}
 		});
 		const result = await CarsDataService.editVt(selectedVt);
@@ -974,6 +976,17 @@ const MiPerfil = (props) => {
 							id="estadoField"
 							onChange={handleChangeVt}
 							value={selectedVt.estado}
+						/>
+						<label>Fecha de la última modificación</label>
+						<input
+							className="form-control"
+							readOnly
+							type="text"
+							maxLength="200"
+							name="fechaUltModif"
+							id="fechaUltModifField"
+							placeholder="Fecha ultima modificacion"
+							value={selectedVt.fechaUltModif}
 						/>
 						<label>id Dueño del auto</label>
 						<input
