@@ -226,9 +226,13 @@ const InscripcionesList = () => {
 						{qrcode && (
 							<>
 								<img src={qrcode} />
-								<a className="btn btn-warning" href={qrcode} download="qrcode.png">
+								<a className="btn btn-warning disabled" href={qrcode} download="qrcode.png">
 									Descargar
 								</a>
+								<br></br>
+								<small className="form-text text-muted">
+									Esta funcion esta temporalmente deshabilitada. Como alternativa puede tomar una captura de pantalla para guardar su código QR en su dispositivo.
+								</small>
 							</>
 						)}
 					</ModalBody>
