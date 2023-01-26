@@ -5,7 +5,7 @@ export const matchPassword = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
 };
 class LoginDataService {
-	async get(correoE, password, googleSignIn = false) {
+	async get(correoE, password) {
 		const validationResult = this.validarFormatoCorreo(correoE);
 		console.log('Result Validaciones: ', validationResult);
 		if (!validationResult.data.status) return validationResult;
@@ -16,13 +16,11 @@ class LoginDataService {
 			result.data.status = false;
 			result.data.errorMessage = 'El usuario y/o contraseña son incorrectos';
 		} else {
-			if (!googleSignIn) {
-				const hash = result.data.responseData.password;
-				const match = await matchPassword(password, hash);
-				if (match !== true) {
-					result.data.status = false;
-					result.data.errorMessage = 'El usuario y/o contraseña son incorrectos';
-				}
+			const hash = result.data.responseData.password;
+			const match = await matchPassword(password, hash);
+			if (match !== true) {
+				result.data.status = false;
+				result.data.errorMessage = 'El usuario y/o contraseña son incorrectos';
 			}
 		}
 		return result;
