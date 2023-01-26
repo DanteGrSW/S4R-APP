@@ -143,6 +143,7 @@ function Login() {
 						<label className="sr-only align-content-start d-flex">Contraseña</label>
 						<input type="password" placeholder="Escribe tu contraseña" className="form-control" name="password" onChange={handleChange} />{' '}
 						<div className="d-grid gap-2 d-md-block">
+							<div id="signInDiv" className="mt-2 flex justify-center"></div>
 							<button className="btn my-2 mx-2 btn-primary" type="button" onClick={() => logIn(user)}>
 								Iniciar Sesión
 							</button>
