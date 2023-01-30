@@ -53,13 +53,13 @@ class UsersDataService {
 		return await http.delete(`/deleteUser?_id=${_id}`);
 	}
 
-	async editUser({ _id, nombre, apellido, direccion, correoE, dni, fechaNac, telefono, profilePic, idRol, idGenero, password }) {
+	async editUser({ _id, nombre, apellido, direccion, correoE, dni, fechaNac, telefono, profilePic, idRol, idGenero, password }, updatePassword = true) {
 		console.log('About to edit user: ', nombre, apellido, direccion, correoE, dni, fechaNac, telefono, idRol, idGenero, password);
 		let idUsuarioModif = cookies.get('_id');
 		let result;
 		result = validatePayload({ _id, nombre, apellido, direccion, correoE, dni, fechaNac, telefono, profilePic, idRol });
 		if (!result.status) return result;
-		result = this.validateData(fechaNac, idRol, correoE);
+		result = this.validateData(fechaNac, idRol, correoE, password, updatePassword);
 		if (!result.status) return result;
 
 		result = await http.put(
@@ -69,7 +69,7 @@ class UsersDataService {
 		return result;
 	}
 
-	validateData(fechaNac, idRol, correoE) {
+	validateData(fechaNac, idRol, correoE, password, updatePassword = true) {
 		const resultValidaciones = {
 			status: true,
 		};
@@ -93,6 +93,21 @@ class UsersDataService {
 		if (!validRegex.test(correoE)) {
 			resultValidaciones.status = false;
 			resultValidaciones.errorMessage = 'Debe ingresar un correo electrónico válido';
+		}
+
+		if (updatePassword) {
+			var validRegexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+
+			if (!validRegexPassword.test(password)) {
+				resultValidaciones.status = false;
+				resultValidaciones.errorMessage =
+					'La contraseña debe contener:' +
+					' | Minimo 8 digitos' +
+					' | Máximo 15 digitos' +
+					' | Al menos 1 numero' +
+					' | Al menos 1 caracter especial' +
+					' | No puede contener espacios';
+			}
 		}
 
 		return resultValidaciones;
