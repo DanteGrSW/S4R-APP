@@ -455,6 +455,9 @@ const MiPerfil = (props) => {
 	};
 
 	const getIdVerContrincante = (idUsuarioP1, idUsuarioP2) => {
+		idUsuarioP1 = idUsuarioP1 !== '' ? idUsuarioP1 : cookies.get('_id');
+		idUsuarioP2 = idUsuarioP2 !== '' ? idUsuarioP2 : cookies.get('_id');
+
 		if (props.match.params._id === idUsuarioP1) {
 			return idUsuarioP2;
 		} else {
@@ -792,10 +795,10 @@ const MiPerfil = (props) => {
 														<br></br>
 													</div>
 													{carreras.map((selectedCarrera) => {
-														const idUsuarioP1 = `${selectedCarrera.idUsuarioP1}`;
-														const idUsuarioP2 = `${selectedCarrera.idUsuarioP2}`;
-														const idVehiculoP1 = `${selectedCarrera.idVehiculoP1}`;
-														const idVehiculoP2 = `${selectedCarrera.idVehiculoP2}`;
+														const usuarioP1 = `${selectedCarrera.usuarioP1}`;
+														const usuarioP2 = `${selectedCarrera.usuarioP2}`;
+														const vehiculoP1 = `${selectedCarrera.vehiculoP1}`;
+														const vehiculoP2 = `${selectedCarrera.vehiculoP2}`;
 														const reaccionP1 = `${selectedCarrera.reaccionP1}`;
 														const reaccionP2 = `${selectedCarrera.reaccionP2}`;
 														const tiempo100mtsP1 = `${selectedCarrera.tiempo100mtsP1}`;
@@ -809,10 +812,10 @@ const MiPerfil = (props) => {
 																	<div className="card-body">
 																		<p className="card-text">
 																			<strong>ID Usuario P1: </strong>
-																			{idUsuarioP1}
+																			{usuarioP1}
 																			<br />
 																			<strong>ID Vehiculo P1: </strong>
-																			{idVehiculoP1}
+																			{vehiculoP1}
 																			<br />
 																			<strong>Reaccion P1: </strong>
 																			{reaccionP1}
@@ -825,10 +828,10 @@ const MiPerfil = (props) => {
 																			<br />
 																			<hr className="rounded"></hr>
 																			<strong>ID Usuario P2: </strong>
-																			{idUsuarioP2}
+																			{usuarioP2}
 																			<br />
 																			<strong>ID Vehiculo P2: </strong>
-																			{idVehiculoP2}
+																			{vehiculoP2}
 																			<br />
 																			<strong>Reaccion P2: </strong>
 																			{reaccionP2}
