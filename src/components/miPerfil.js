@@ -811,10 +811,10 @@ const MiPerfil = (props) => {
 																<div className="card">
 																	<div className="card-body">
 																		<p className="card-text">
-																			<strong>ID Usuario P1: </strong>
+																			<strong>Usuario P1: </strong>
 																			{usuarioP1}
 																			<br />
-																			<strong>ID Vehiculo P1: </strong>
+																			<strong>Vehiculo P1: </strong>
 																			{vehiculoP1}
 																			<br />
 																			<strong>Reaccion P1: </strong>
@@ -827,10 +827,10 @@ const MiPerfil = (props) => {
 																			{tiempoLlegadaP1}
 																			<br />
 																			<hr className="rounded"></hr>
-																			<strong>ID Usuario P2: </strong>
+																			<strong>Usuario P2: </strong>
 																			{usuarioP2}
 																			<br />
-																			<strong>ID Vehiculo P2: </strong>
+																			<strong>Vehiculo P2: </strong>
 																			{vehiculoP2}
 																			<br />
 																			<strong>Reaccion P2: </strong>
