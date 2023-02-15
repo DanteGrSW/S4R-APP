@@ -62,7 +62,9 @@ class UsersDataService {
 		result = this.validateData(fechaNac, idRol, correoE, password, updatePassword);
 		if (!result.status) return result;
 
-		password = await bcrypt.hash(password, 8);
+		if (updatePassword) {
+			password = await bcrypt.hash(password, 8);
+		}
 
 		result = await http.put(
 			`/editUser?_id=${_id}&nombre=${nombre}&apellido=${apellido}&direccion=${direccion}&correoE=${correoE}&dni=${dni}&fechaNac=${fechaNac}&telefono=${telefono}&profilePic=${profilePic}&idRol=${idRol}&idUsuarioModif=${idUsuarioModif}&idGenero=${idGenero}&password=${password}`
